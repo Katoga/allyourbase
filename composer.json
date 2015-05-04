@@ -1,0 +1,23 @@
+{
+	"name": "katoga/allyourbase",
+	"description": "Collection of bin-to-ascii converters.",
+	"keywords": ["base64", "encode", "decode", "binary to ascii"],
+	"license": ["ISC"],
+	"authors": [
+		{
+			"name": "Katoga",
+			"email": "katoga.cz@hotmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0"
+	},
+	"require-dev": {
+		"nette/tester": "~1.4.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Katoga\\": "src/"
+		}
+	}
+}
