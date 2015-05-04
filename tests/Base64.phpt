@@ -16,5 +16,5 @@ Assert::exception(
 		$malformed = 'SGVsbyB3b3JsZCE#';
 		$dummy = $b64->decode($malformed);
 	},
-	'DecodeFailedException'
+	'\Katoga\Allyourbase\DecodeFailedException'
 );
