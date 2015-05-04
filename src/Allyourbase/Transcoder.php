@@ -11,12 +11,12 @@ interface Transcoder
 	 * @return string ascii string
 	 * @throws EncodeFailedException
 	 */
-	public function encode($input){}
+	public function encode($input);
 	
 	/**
 	 * @param string $input ascii string
 	 * @return string binary string
 	 * @throws DecodeFailedException
 	 */
-	public function decode($input){}
+	public function decode($input);
 }
