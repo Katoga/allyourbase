@@ -57,6 +57,7 @@ class Base91 implements Transcoder
 	/**
 	 * @param string $input ascii string
 	 * @return string binary string
+	 * @throws DecodeFailedException
 	 */
 	public function decode($input)
 	{
