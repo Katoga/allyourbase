@@ -3,7 +3,7 @@ use Tester\Assert;
 
 require_once __DIR__ . '/bootstrap.php';
 
-$b91 = new Katoga\Allyourbase\Base64();
+$b91 = new Katoga\Allyourbase\Base91();
 
 $plain = 'Hello world!';
 $encoded = '>OwJh>Io2Tv!8PE';
