@@ -13,10 +13,14 @@ class Base64 implements Transcoder
 	 */
 	public function encode($input)
 	{
-		$output = base64_encode($input);
+		$output = '';
 
-		if ($output === false) {
-			throw new EncodeFailedException();
+		if ($input !== '') {
+			$output = base64_encode($input);
+
+			if ($output === false) {
+				throw new EncodeFailedException();
+			}
 		}
 
 		return $output;
@@ -29,10 +33,14 @@ class Base64 implements Transcoder
 	 */
 	public function decode($input)
 	{
-		$output = base64_decode($input, true);
+		$output = '';
 
-		if ($output === false) {
-			throw new DecodeFailedException();
+		if ($input !== '') {
+			$output = base64_decode($input, true);
+
+			if ($output === false) {
+				throw new DecodeFailedException();
+			}
 		}
 
 		return $output;

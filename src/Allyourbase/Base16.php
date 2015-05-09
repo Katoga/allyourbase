@@ -12,7 +12,10 @@ class Base16 implements Transcoder
 	 */
 	public function encode($input)
 	{
-		$output = bin2hex($input);
+		$output = '';
+		if ($input !== '') {
+			$output = bin2hex($input);
+		}
 
 		return $output;
 	}
@@ -24,9 +27,12 @@ class Base16 implements Transcoder
 	 */
 	public function decode($input)
 	{
-		set_error_handler([$this, 'handleDecodeErrors']);
+		$output = '';
+		if ($input !== '') {
+			set_error_handler([$this, 'handleDecodeErrors']);
 
-		$output = hex2bin($input);
+			$output = hex2bin($input);
+		}
 
 		return $output;
 	}

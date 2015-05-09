@@ -2,6 +2,7 @@
 namespace Katoga\Allyourbase;
 
 /**
+ * @author Joachim Henke
  * @author Katoga <katoga.cz@hotmail.com>
  */
 class Base91 implements Transcoder
@@ -17,37 +18,40 @@ class Base91 implements Transcoder
 	 */
 	public function encode($input)
 	{
-		$alphabet = $this->getAlphabet();
-		
-		$length = strlen($input);
-		$output = null;
-		$b = null;
-		$n = null;
-		
-		for ($i = 0; $i < $length; $i++) {
-			$b |= ord($input{$i}) << $n;
-			$n += 8;
+		$output = '';
 
-			if ($n > 13) {
-				$v = $b & 8191;
+		if ($input !== '') {
+			$alphabet = $this->getAlphabet();
 
-				if ($v > 88) {
-					$b >>= 13;
-					$n -= 13;
-				} else {
-					$v = $b & 16383;
-					$b >>= 14;
-					$n -= 14;
+			$length = strlen($input);
+			$b = null;
+			$n = null;
+
+			for ($i = 0; $i < $length; $i++) {
+				$b |= ord($input{$i}) << $n;
+				$n += 8;
+
+				if ($n > 13) {
+					$v = $b & 8191;
+
+					if ($v > 88) {
+						$b >>= 13;
+						$n -= 13;
+					} else {
+						$v = $b & 16383;
+						$b >>= 14;
+						$n -= 14;
+					}
+
+					$output .= $alphabet[$v % 91] . $alphabet[$v / 91];
 				}
-
-				$output .= $alphabet[$v % 91] . $alphabet[$v / 91];
 			}
-		}
 
-		if ($n) {
-			$output .= $alphabet[$b % 91];
-			if ($n > 7 || $b > 90) {
-				$output .= $alphabet[$b / 91];
+			if ($n) {
+				$output .= $alphabet[$b % 91];
+				if ($n > 7 || $b > 90) {
+					$output .= $alphabet[$b / 91];
+				}
 			}
 		}
 
@@ -61,37 +65,40 @@ class Base91 implements Transcoder
 	 */
 	public function decode($input)
 	{
-		$alphabet = $this->getDecodingAlphabet();
+		$output = '';
 
-		$length = strlen($input);
-		$output = null;
-		$b = null;
-		$n = null;
-		$v = -1;
+		if ($input !== '') {
+			$alphabet = $this->getDecodingAlphabet();
 
-		for ($i = 0; $i < $length; $i++) {
-			if (!isset($alphabet[$input{$i}])) {
-					throw new DecodeFailedException();
+			$length = strlen($input);
+			$b = null;
+			$n = null;
+			$v = -1;
+
+			for ($i = 0; $i < $length; $i++) {
+				if (!isset($alphabet[$input{$i}])) {
+						throw new DecodeFailedException();
+				}
+
+				$c = $alphabet[$input{$i}];
+
+				if ($v < 0) {
+						$v = $c;
+				} else {
+						$v += $c * 91;
+						$b |= $v << $n;
+						$n += ($v & 8191) > 88 ? 13 : 14;
+						do {
+								$output .= chr($b & 255);
+								$b >>= 8;
+								$n -= 8;
+						} while ($n > 7);
+						$v = -1;
+				}
 			}
-
-			$c = $alphabet[$input{$i}];
-
-			if ($v < 0) {
-					$v = $c;
-			} else {
-					$v += $c * 91;
-					$b |= $v << $n;
-					$n += ($v & 8191) > 88 ? 13 : 14;
-					do {
-							$output .= chr($b & 255);
-							$b >>= 8;
-							$n -= 8;
-					} while ($n > 7);
-					$v = -1;
+			if ($v + 1) {
+					$output .= chr(($b | $v << $n) & 255);
 			}
-		}
-		if ($v + 1) {
-				$output .= chr(($b | $v << $n) & 255);
 		}
 
 		return $output;
