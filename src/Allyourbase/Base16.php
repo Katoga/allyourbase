@@ -32,6 +32,8 @@ class Base16 implements Transcoder
 			set_error_handler([$this, 'handleDecodeErrors']);
 
 			$output = hex2bin($input);
+
+			restore_error_handler();
 		}
 
 		return $output;
