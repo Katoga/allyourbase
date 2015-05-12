@@ -1,7 +1,7 @@
 {
 	"name": "katoga/allyourbase",
 	"description": "Collection of bin-to-ascii converters.",
-	"keywords": ["base16", "base64", "base91", "encode", "decode", "binary to ascii"],
+	"keywords": ["base16", "base32", "base64", "base91", "encode", "decode", "binary to ascii"],
 	"license": ["ISC"],
 	"authors": [
 		{
