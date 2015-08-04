@@ -166,9 +166,9 @@ class Base32 implements Transcoder
 		$alphabet = array_flip($this->getAlphabet($type));
 
 		if ($type == self::CROCKFORD) {
-			$alphabet['O'] => 0;
-			$alphabet['I'] => 1;
-			$alphabet['L'] => 1;
+			$alphabet['O'] = 0;
+			$alphabet['I'] = 1;
+			$alphabet['L'] = 1;
 		}
 
 		return $alphabet;
