@@ -43,15 +43,15 @@ class Base32 implements Transcoder
 
 	/**
 	 * @param string $input binary string
-	 * @param int $mode alphabet type
+	 * @param int $type alphabet type
 	 * @return string ascii string
 	 */
-	public function encode($input, $mode = self::RFC4648)
+	public function encode($input, $type = self::RFC4648)
 	{
 		$output = '';
 
 		if ($input !== '') {
-			$alphabet = $this->getAlphabet($mode);
+			$alphabet = $this->getAlphabet($type);
 			// create binary represantation of input string
 			$binStr = '';
 			foreach (str_split($input) as $char) {
@@ -80,16 +80,16 @@ class Base32 implements Transcoder
 
 	/**
 	 * @param string $input ascii string
-	 * @param int $mode alphabet type
+	 * @param int $type alphabet type
 	 * @return string binary string
 	 * @throws DecodeFailedException
 	 */
-	public function decode($input, $mode = self::RFC4648)
+	public function decode($input, $type = self::RFC4648)
 	{
 		$output = '';
 
 		if ($input !== '') {
-			$alphabet = $this->getDecodingAlphabet($mode);
+			$alphabet = $this->getDecodingAlphabet($type);
 
 			// convert input to uppercase and remove trailing padding chars
 			$input = rtrim(strtoupper($input), self::PAD_CHAR);
@@ -105,7 +105,7 @@ class Base32 implements Transcoder
 			}
 
 			// trim zeros from tight side of binary string, its length has to be divisible by 8
-			$binStr = $this->rightTrim($binStr, 8, '0');
+			$binStr = $this->trim($binStr, 8, '0');
 
 			$binArr = explode(' ', trim(chunk_split($binStr, 8, ' ')));
 
@@ -118,7 +118,7 @@ class Base32 implements Transcoder
 	}
 
 	/**
-	 * Pads $string with $char to length divisible by $factor
+	 * Pads $string on right side with $char to length divisible by $factor
 	 *
 	 * @param string $string
 	 * @param int $factor
@@ -144,7 +144,7 @@ class Base32 implements Transcoder
 	 * @param int $factor
 	 * @param string $char
 	 */
-	protected function rightTrim($string, $factor, $char)
+	protected function trim($string, $factor, $char)
 	{
 		$output = $string;
 		$length = strlen($string);
@@ -158,59 +158,59 @@ class Base32 implements Transcoder
 	}
 
 	/**
+	 * @param int $type
 	 * @return array
 	 */
-	protected function getDecodingAlphabet($mode)
+	protected function getDecodingAlphabet($type)
 	{
-		return array_flip($this->getAlphabet($mode));
+		$alphabet = array_flip($this->getAlphabet($type));
+
+		if ($type == self::CROCKFORD) {
+			$alphabet['O'] => 0;
+			$alphabet['I'] => 1;
+			$alphabet['L'] => 1;
+		}
+
+		return $alphabet;
 	}
 
 	/**
-	 * @param int $mode
+	 * @param int $type
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function getAlphabet($mode)
+	protected function getAlphabet($type)
 	{
-		if (empty($this->alphabet[$mode])) {
-			switch ($mode) {
+		if (empty($this->alphabet[$type])) {
+			$alphaRange = range('A', 'Z');
+			$numRange = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+			switch ($type) {
 				case self::RFC4648:
-					$alphabet = array_merge(
-						range('A', 'Z'),
-						[
-							'2', '3', '4', '5', '6', '7'
-						]
-					);
+					// exclude 0, 1, 8, 9
+					$numRange = array_slice($numRange, 2, -2);
+					$alphabet = array_merge($alphaRange, $numRange);
 					break;
 
 				case self::RFC2938:
-					$alphabet = array_merge(
-						[
-							'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-						],
-						range('A', 'V')
-					);
+					// exclude W, X, Y, Z
+					$alphaRange = array_slice($alphaRange, 0, -4);
+					$alphabet = array_merge($numRange, $alphaRange);
 					break;
 
 				case self::CROCKFORD:
-					$alphabet = array_merge(
-						[
-							'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-						],
-						range('A', 'Z')
-					);
-					unset($alphabet[18], $alphabet[21], $alphabet[24], $alphabet[30]);
-
-					$alphabet = array_values($alphabet);
+					// exclude I, L, O, U
+					unset($alphaRange[8], $alphaRange[11], $alphaRange[14], $alphaRange[20]);
+					$alphabet = array_merge($numRange, $alphaRange);
 					break;
 
 				default:
 					throw new \InvalidArgumentException(sprintf('Wrong alphabet provided: "%s"!', $alphabet));
 			}
 
-			$this->alphabet[$mode] = $alphabet;
+			$this->alphabet[$type] = $alphabet;
 		}
 
-		return $this->alphabet[$mode];
+		return $this->alphabet[$type];
 	}
 }
