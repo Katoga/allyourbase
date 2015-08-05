@@ -3,7 +3,6 @@ namespace Katoga\Allyourbase;
 
 /**
  * @author Katoga <katoga.cz@hotmail.com>
- * @todo Douglas Crockford's variant - it is more loose (decoding treats I and L as 1 and O as 0)
  */
 class Base32 implements Transcoder
 {
