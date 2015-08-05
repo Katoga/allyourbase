@@ -175,7 +175,7 @@ class Base32 implements Transcoder
 			$lowercase = range('a', 'z');
 			unset($lowercase[20]);
 			foreach ($lowercase as $ch) {
-				$alphabet[$ch] = $alphabet[strtoupper[$ch]];
+				$alphabet[$ch] = $alphabet[strtoupper([$ch])];
 			}
 		}
 
