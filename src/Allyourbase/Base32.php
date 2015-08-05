@@ -17,7 +17,8 @@ class Base32 implements Transcoder
 	const RFC4648 = 1;
 
 	/**
-	 * 0-9, A-V (AKA "Extended hex" or "base32hex")
+	 * 0-9, A-V 
+	 * "Extended hex" or "base32hex"
 	 *
 	 * @var int
 	 */
@@ -166,9 +167,16 @@ class Base32 implements Transcoder
 		$alphabet = array_flip($this->getAlphabet($type));
 
 		if ($type == self::CROCKFORD) {
-			$alphabet['O'] = 0;
 			$alphabet['I'] = 1;
 			$alphabet['L'] = 1;
+			$alphabet['O'] = 0;
+
+			// add lowercase
+			$lowercase = range('a', 'z');
+			unset($lowercase[20]);
+			foreach ($lowercase as $ch) {
+				$alphabet[$ch] = $alphabet[strtoupper[$ch]];
+			}
 		}
 
 		return $alphabet;
