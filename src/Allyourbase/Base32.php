@@ -16,7 +16,7 @@ class Base32 implements Transcoder
 	const RFC4648 = 1;
 
 	/**
-	 * 0-9, A-V 
+	 * 0-9, A-V
 	 * "Extended hex" or "base32hex"
 	 *
 	 * @var int
@@ -36,10 +36,27 @@ class Base32 implements Transcoder
 	 */
 	const PAD_CHAR = '=';
 
+	const ENCODE = 1;
+
+	const DECODE = 1;
+
 	/**
 	 * @var array
 	 */
-	protected $alphabet = [];
+	protected $alphabet = [
+		self::RFC4648 => [
+			self::ENCODE => [],
+			self::DECODE => [],
+		],
+		self::RFC2938 => [
+			self::ENCODE => [],
+			self::DECODE => [],
+		],
+		self::CROCKFORD => [
+			self::ENCODE => [],
+			self::DECODE => [],
+		],
+	];
 
 	/**
 	 * @param string $input binary string
@@ -51,7 +68,7 @@ class Base32 implements Transcoder
 		$output = '';
 
 		if ($input !== '') {
-			$alphabet = $this->getAlphabet($type);
+			$alphabet = $this->getEncodingAlphabet($type);
 			// create binary represantation of input string
 			$binStr = '';
 			foreach (str_split($input) as $char) {
@@ -161,63 +178,87 @@ class Base32 implements Transcoder
 	 * @param int $type
 	 * @return array
 	 */
-	protected function getDecodingAlphabet($type)
+	protected function getEncodingAlphabet($type)
 	{
-		$alphabet = array_flip($this->getAlphabet($type));
-
-		if ($type == self::CROCKFORD) {
-			$alphabet['I'] = 1;
-			$alphabet['L'] = 1;
-			$alphabet['O'] = 0;
-
-			// add lowercase
-			$lowercase = range('a', 'z');
-			unset($lowercase[20]);
-			foreach ($lowercase as $ch) {
-				$alphabet[$ch] = $alphabet[strtoupper($ch)];
-			}
-		}
-
-		return $alphabet;
+		return $this->alphabet[$type][self::ENCODE];
 	}
 
 	/**
 	 * @param int $type
 	 * @return array
+	 */
+	protected function getDecodingAlphabet($type)
+	{
+		return $this->getAlphabet($type, self::DECODE);
+	}
+
+	/**
+	 * @param int $type
+	 * @param int $mode
+	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function getAlphabet($type)
+	protected function getAlphabet($type, $mode)
 	{
-		if (empty($this->alphabet[$type])) {
-			$alphaRange = range('A', 'Z');
-			$numRange = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+		if (!isset($this->alphabet[$type])) {
+			throw new InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));
+		}
 
+		if (!isset($this->alphabet[$type][$mode])) {
+			throw new InvalidArgumentException(sprintf('Wrong mode requested: "%s"!', $mode));
+		}
+
+		if (empty($this->alphabet[$type][$mode])) {
+			// generate the requested alphabet
 			switch ($type) {
 				case self::RFC4648:
-					// exclude 0, 1, 8, 9
-					$numRange = array_slice($numRange, 2, -2);
-					$alphabet = array_merge($alphaRange, $numRange);
+					$alphabet = array_merge(
+						range('A', 'Z'),
+						['2', '3', '4', '5', '6', '7']
+					);
+					$this->alphabet[$type][self::ENCODE] = $alphabet;
+					$this->alphabet[$type][self::DECODE] = array_flip($alphabet);
 					break;
 
 				case self::RFC2938:
-					// exclude W, X, Y, Z
-					$alphaRange = array_slice($alphaRange, 0, -4);
-					$alphabet = array_merge($numRange, $alphaRange);
+					$alphabet = array_merge(
+						['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+						range('A', 'V')
+					);
+					$this->alphabet[$type][self::ENCODE] = $alphabet;
+					$this->alphabet[$type][self::DECODE] = array_flip($alphabet);
 					break;
 
 				case self::CROCKFORD:
-					// exclude I, L, O, U
-					unset($alphaRange[8], $alphaRange[11], $alphaRange[14], $alphaRange[20]);
-					$alphabet = array_merge($numRange, $alphaRange);
+					$alphabet = array_merge(
+						['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+						array_diff(
+							range('A', 'Z'),
+							['I', 'L', 'O', 'U']
+						)
+					);
+					$this->alphabet[$type][self::ENCODE] = $alphabet;
+
+					$decodeCrockford = array_merge(
+						array_flip($alphabet),
+						[
+							'I' => 1,
+							'L' => 1,
+							'O' => 0
+						]
+					);
+
+					$lowercase = range('a', 'z');
+					unset($lowercase[20]);
+					foreach ($lowercase as $ch) {
+						$decodeCrockford[$ch] = $decodeCrockford[strtoupper($ch)];
+					}
+
+					$this->alphabet[$type][self::DECODE] = $decodeCrockford;
 					break;
-
-				default:
-					throw new \InvalidArgumentException(sprintf('Wrong alphabet provided: "%s"!', $alphabet));
 			}
-
-			$this->alphabet[$type] = $alphabet;
 		}
 
-		return $this->alphabet[$type];
+		return $this->alphabet[$type][$mode];
 	}
 }
