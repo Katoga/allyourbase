@@ -36,9 +36,15 @@ class Base32 implements Transcoder
 	 */
 	const PAD_CHAR = '=';
 
+	/**
+	 * @var int
+	 */
 	const ENCODE = 1;
 
-	const DECODE = 1;
+	/**
+	 * @var int
+	 */
+	const DECODE = 2;
 
 	/**
 	 * @var array
