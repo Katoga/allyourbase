@@ -186,7 +186,7 @@ class Base32 implements Transcoder
 	 */
 	protected function getEncodingAlphabet($type)
 	{
-		return $this->alphabet[$type][self::ENCODE];
+		return $this->getAlphabet[$type][self::ENCODE];
 	}
 
 	/**
