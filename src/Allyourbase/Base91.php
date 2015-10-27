@@ -15,6 +15,7 @@ class Base91 implements Transcoder
 	/**
 	 * @param string $input binary string
 	 * @return string ascii string
+	 * @SuppressWarnings(PHPMD.ShortVariable)
 	 */
 	public function encode($input)
 	{
@@ -62,6 +63,7 @@ class Base91 implements Transcoder
 	 * @param string $input ascii string
 	 * @return string binary string
 	 * @throws DecodeFailedException
+	 * @SuppressWarnings(PHPMD.ShortVariable)
 	 */
 	public function decode($input)
 	{

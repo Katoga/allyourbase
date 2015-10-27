@@ -1,6 +1,6 @@
 <?php
 
-if (@!include __DIR__ . '/../../../autoload.php') {
+if (@!include dirname(__DIR__) . '/vendor/autoload.php') {
 	echo 'Install Nette Tester using `composer install`';
 	exit(1);
 }

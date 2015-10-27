@@ -127,8 +127,8 @@ class Base32 implements Transcoder
 				$binStr .= str_pad((decbin($alphabet[$ch])), 5, '0', STR_PAD_LEFT);
 			}
 
-			// trim zeros from tight side of binary string, its length has to be divisible by 8
-			$binStr = $this->trim($binStr, 8, '0');
+			// trim the right side of binary string, its length has to be divisible by 8
+			$binStr = $this->trim($binStr, 8);
 
 			$binArr = explode(' ', trim(chunk_split($binStr, 8, ' ')));
 
@@ -165,9 +165,8 @@ class Base32 implements Transcoder
 	 *
 	 * @param string $string
 	 * @param int $factor
-	 * @param string $char
 	 */
-	protected function trim($string, $factor, $char)
+	protected function trim($string, $factor)
 	{
 		$output = $string;
 		$length = strlen($string);
