@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Katoga/allyourbase.svg?branch=master)](https://travis-ci.org/Katoga/allyourbase)
+
 Allyourbase
 ===========
 Collection of binary-to-ascii encoders.
