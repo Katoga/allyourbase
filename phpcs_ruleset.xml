@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<ruleset name="AllYourBase Rules">
+
+	<description>Custom ruleset for AllYourBase.</description>
+
+	<rule ref="PSR2">
+		<description>Original cleancode rule without ElseExpression.</description>
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+	</rule>
+
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent" />
+	
+</ruleset>
