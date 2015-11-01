@@ -87,15 +87,15 @@ class Base91 implements Transcoder
 				if ($v < 0) {
 						$v = $c;
 				} else {
-						$v += $c * 91;
-						$b |= $v << $n;
-						$n += ($v & 8191) > 88 ? 13 : 14;
-						do {
-								$output .= chr($b & 255);
-								$b >>= 8;
-								$n -= 8;
-						} while ($n > 7);
-						$v = -1;
+					$v += $c * 91;
+					$b |= $v << $n;
+					$n += ($v & 8191) > 88 ? 13 : 14;
+					do {
+						$output .= chr($b & 255);
+						$b >>= 8;
+						$n -= 8;
+					} while ($n > 7);
+					$v = -1;
 				}
 			}
 			if ($v + 1) {
