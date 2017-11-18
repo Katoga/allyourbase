@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 use Tester\Assert;
 
 require_once __DIR__ . '/../../bootstrap.php';
@@ -16,7 +18,7 @@ Assert::exception(
 Assert::exception(
 	function () use ($b32) {
 		$malformed = '48656c6c6f20776f726c6421z';
-		$dummy = $b32->decode($malformed, Katoga\Allyourbase\Base32::RFC4648);
+		$dummy = $b32->decode($malformed);
 	},
 	'\Katoga\Allyourbase\DecodeFailedException'
 );

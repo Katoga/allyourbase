@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
+
 use Tester\Assert;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-$b32 = new Katoga\Allyourbase\Base32();
+$b32 = new Katoga\Allyourbase\Base32(Katoga\Allyourbase\Base32::CROCKFORD);
 
 $encodedTextLowercase = file_get_contents(TEST_DATA_DIR . '/data.txt.b32crockford-lowercase');
 
-Assert::same($text, $b32->decode($encodedTextLowercase, Katoga\Allyourbase\Base32::CROCKFORD));
+Assert::same($text, $b32->decode($encodedTextLowercase));

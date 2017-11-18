@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Katoga\Allyourbase;
 
 /**
@@ -47,6 +49,11 @@ class Base32 implements Transcoder
 	const DECODE = 2;
 
 	/**
+	 * @var int
+	 */
+	protected $type = self::RFC4648;
+
+	/**
 	 * @var array
 	 */
 	protected $alphabet = [
@@ -65,16 +72,23 @@ class Base32 implements Transcoder
 	];
 
 	/**
+	 * @param int $type = self::RFC4648
+	 */
+	public function __construct(int $type = self::RFC4648)
+	{
+		$this->type = $type;
+	}
+
+	/**
 	 * @param string $input binary string
-	 * @param int $type alphabet type
 	 * @return string ascii string
 	 */
-	public function encode($input, $type = self::RFC4648)
+	public function encode(string $input): string
 	{
 		$output = '';
 
 		if ($input !== '') {
-			$alphabet = $this->getEncodingAlphabet($type);
+			$alphabet = $this->getEncodingAlphabet($this->type);
 			// create binary represantation of input string
 			$binStr = '';
 			foreach (str_split($input) as $char) {
@@ -103,16 +117,15 @@ class Base32 implements Transcoder
 
 	/**
 	 * @param string $input ascii string
-	 * @param int $type alphabet type
 	 * @return string binary string
 	 * @throws DecodeFailedException
 	 */
-	public function decode($input, $type = self::RFC4648)
+	public function decode(string $input): string
 	{
 		$output = '';
 
 		if ($input !== '') {
-			$alphabet = $this->getDecodingAlphabet($type);
+			$alphabet = $this->getDecodingAlphabet($this->type);
 
 			// convert input to uppercase and remove trailing padding chars
 			$input = rtrim(strtoupper($input), self::PAD_CHAR);

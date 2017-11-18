@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Katoga\Allyourbase;
 
 /**
@@ -11,12 +13,12 @@ interface Transcoder
 	 * @return string ascii string
 	 * @throws EncodeFailedException
 	 */
-	public function encode($input);
-	
+	public function encode(string $input): string;
+
 	/**
 	 * @param string $input ascii string
 	 * @return string binary string
 	 * @throws DecodeFailedException
 	 */
-	public function decode($input);
+	public function decode(string $input): string;
 }

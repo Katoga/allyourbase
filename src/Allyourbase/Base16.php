@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Katoga\Allyourbase;
 
 /**
@@ -10,7 +12,7 @@ class Base16 implements Transcoder
 	 * @param string $input binary string
 	 * @return string ascii string
 	 */
-	public function encode($input)
+	public function encode(string $input): string
 	{
 		$output = '';
 		if ($input !== '') {
@@ -25,7 +27,7 @@ class Base16 implements Transcoder
 	 * @return string binary string
 	 * @throws DecodeFailedException
 	 */
-	public function decode($input)
+	public function decode(string $input): string
 	{
 		$output = '';
 		if ($input !== '') {
