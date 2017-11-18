@@ -4,7 +4,7 @@ php:
   - 7.1
   - hhvm
 
-install: travis_retry composer update -n
+install: travis_retry composer install --no-interaction
 
 script:
   - vendor/bin/tester -s -p php tests
