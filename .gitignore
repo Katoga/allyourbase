@@ -1,8 +1,5 @@
 # Composer
 /vendor
-/composer.lock
 
-# Eclipse IDE
-/.project
-/.buildpath
-/.settings
+# Tester
+/tests/**/output/
