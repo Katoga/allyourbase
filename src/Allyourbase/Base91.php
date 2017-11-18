@@ -113,7 +113,7 @@ class Base91 implements Transcoder
 	/**
 	 * @return array
 	 */
-	protected function getDecodingAlphabet()
+	protected function getDecodingAlphabet(): array
 	{
 		return array_flip($this->getAlphabet());
 	}
@@ -121,7 +121,7 @@ class Base91 implements Transcoder
 	/**
 	 * @return array
 	 */
-	protected function getAlphabet()
+	protected function getAlphabet(): array
 	{
 		if (!$this->alphabet) {
 			$this->alphabet = array_merge(

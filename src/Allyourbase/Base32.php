@@ -159,8 +159,9 @@ class Base32 implements Transcoder
 	 * @param string $string
 	 * @param int $factor
 	 * @param string $char
+	 * @return string
 	 */
-	protected function pad($string, $factor, $char)
+	protected function pad(string $string, int $factor, string $char): string
 	{
 		$output = $string;
 		$length = strlen($string);
@@ -178,8 +179,9 @@ class Base32 implements Transcoder
 	 *
 	 * @param string $string
 	 * @param int $factor
+	 * @return string
 	 */
-	protected function trim($string, $factor)
+	protected function trim(string $string, int $factor): string
 	{
 		$output = $string;
 		$length = strlen($string);
@@ -196,7 +198,7 @@ class Base32 implements Transcoder
 	 * @param int $type
 	 * @return array
 	 */
-	protected function getEncodingAlphabet($type)
+	protected function getEncodingAlphabet(int $type): array
 	{
 		return $this->getAlphabet($type, self::ENCODE);
 	}
@@ -205,7 +207,7 @@ class Base32 implements Transcoder
 	 * @param int $type
 	 * @return array
 	 */
-	protected function getDecodingAlphabet($type)
+	protected function getDecodingAlphabet(int $type): array
 	{
 		return $this->getAlphabet($type, self::DECODE);
 	}
@@ -216,7 +218,7 @@ class Base32 implements Transcoder
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function getAlphabet($type, $mode)
+	protected function getAlphabet(int $type, int $mode): array
 	{
 		if (!isset($this->alphabet[$type])) {
 			throw new \InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));
