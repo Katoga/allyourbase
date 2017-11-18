@@ -1,5 +1,8 @@
 # Allyourbase CHANGELOG
 
+# 2.0.0
+- Katoga - Refactor to support PHP 7.1 only
+
 # 1.2.0
 - Katoga - Add Douglas Crockford's variant of Base32
 
