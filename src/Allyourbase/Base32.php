@@ -206,11 +206,11 @@ class Base32 implements Transcoder
 	protected function getAlphabet($type, $mode)
 	{
 		if (!isset($this->alphabet[$type])) {
-			throw new InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));
+			throw new \InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));
 		}
 
 		if (!isset($this->alphabet[$type][$mode])) {
-			throw new InvalidArgumentException(sprintf('Wrong mode requested: "%s"!', $mode));
+			throw new \InvalidArgumentException(sprintf('Wrong mode requested: "%s"!', $mode));
 		}
 
 		if (empty($this->alphabet[$type][$mode])) {
