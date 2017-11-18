@@ -24,7 +24,7 @@ class Base91 implements Transcoder
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$alphabet = $this->getAlphabet();
 
 			$length = strlen($input);
@@ -73,7 +73,7 @@ class Base91 implements Transcoder
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$alphabet = $this->getDecodingAlphabet();
 
 			$length = strlen($input);

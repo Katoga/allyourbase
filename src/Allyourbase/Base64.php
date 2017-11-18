@@ -17,7 +17,7 @@ class Base64 implements Transcoder
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$output = base64_encode($input);
 
 			if ($output === false) {
@@ -37,7 +37,7 @@ class Base64 implements Transcoder
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$output = base64_decode($input, true);
 
 			if ($output === false) {

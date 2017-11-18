@@ -15,7 +15,7 @@ class Base16 implements Transcoder
 	public function encode(string $input): string
 	{
 		$output = '';
-		if ($input !== '') {
+		if ($input != '') {
 			$output = bin2hex($input);
 		}
 
@@ -30,7 +30,7 @@ class Base16 implements Transcoder
 	public function decode(string $input): string
 	{
 		$output = '';
-		if ($input !== '') {
+		if ($input != '') {
 			set_error_handler([$this, 'handleDecodeErrors']);
 
 			$output = hex2bin($input);

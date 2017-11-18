@@ -87,7 +87,7 @@ class Base32 implements Transcoder
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$alphabet = $this->getEncodingAlphabet($this->type);
 			// create binary represantation of input string
 			$binStr = '';
@@ -124,7 +124,7 @@ class Base32 implements Transcoder
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$alphabet = $this->getDecodingAlphabet($this->type);
 
 			// convert input to uppercase and remove trailing padding chars
