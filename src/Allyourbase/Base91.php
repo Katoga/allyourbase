@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Katoga\Allyourbase;
 
 /**
@@ -15,13 +17,14 @@ class Base91 implements Transcoder
 	/**
 	 * @param string $input binary string
 	 * @return string ascii string
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 * @SuppressWarnings(PHPMD.ShortVariable)
 	 */
-	public function encode($input)
+	public function encode(string $input): string
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$alphabet = $this->getAlphabet();
 
 			$length = strlen($input);
@@ -63,13 +66,14 @@ class Base91 implements Transcoder
 	 * @param string $input ascii string
 	 * @return string binary string
 	 * @throws DecodeFailedException
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 * @SuppressWarnings(PHPMD.ShortVariable)
 	 */
-	public function decode($input)
+	public function decode(string $input): string
 	{
 		$output = '';
 
-		if ($input !== '') {
+		if ($input != '') {
 			$alphabet = $this->getDecodingAlphabet();
 
 			$length = strlen($input);
@@ -109,7 +113,7 @@ class Base91 implements Transcoder
 	/**
 	 * @return array
 	 */
-	protected function getDecodingAlphabet()
+	protected function getDecodingAlphabet(): array
 	{
 		return array_flip($this->getAlphabet());
 	}
@@ -117,7 +121,7 @@ class Base91 implements Transcoder
 	/**
 	 * @return array
 	 */
-	protected function getAlphabet()
+	protected function getAlphabet(): array
 	{
 		if (!$this->alphabet) {
 			$this->alphabet = array_merge(

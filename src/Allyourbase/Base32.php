@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Katoga\Allyourbase;
 
 /**
@@ -47,6 +49,11 @@ class Base32 implements Transcoder
 	const DECODE = 2;
 
 	/**
+	 * @var int
+	 */
+	protected $type = self::RFC4648;
+
+	/**
 	 * @var array
 	 */
 	protected $alphabet = [
@@ -65,16 +72,23 @@ class Base32 implements Transcoder
 	];
 
 	/**
+	 * @param int $type = self::RFC4648
+	 */
+	public function __construct(int $type = self::RFC4648)
+	{
+		$this->type = $type;
+	}
+
+	/**
 	 * @param string $input binary string
-	 * @param int $type alphabet type
 	 * @return string ascii string
 	 */
-	public function encode($input, $type = self::RFC4648)
+	public function encode(string $input): string
 	{
 		$output = '';
 
-		if ($input !== '') {
-			$alphabet = $this->getEncodingAlphabet($type);
+		if ($input != '') {
+			$alphabet = $this->getEncodingAlphabet($this->type);
 			// create binary represantation of input string
 			$binStr = '';
 			foreach (str_split($input) as $char) {
@@ -103,16 +117,15 @@ class Base32 implements Transcoder
 
 	/**
 	 * @param string $input ascii string
-	 * @param int $type alphabet type
 	 * @return string binary string
 	 * @throws DecodeFailedException
 	 */
-	public function decode($input, $type = self::RFC4648)
+	public function decode(string $input): string
 	{
 		$output = '';
 
-		if ($input !== '') {
-			$alphabet = $this->getDecodingAlphabet($type);
+		if ($input != '') {
+			$alphabet = $this->getDecodingAlphabet($this->type);
 
 			// convert input to uppercase and remove trailing padding chars
 			$input = rtrim(strtoupper($input), self::PAD_CHAR);
@@ -146,8 +159,9 @@ class Base32 implements Transcoder
 	 * @param string $string
 	 * @param int $factor
 	 * @param string $char
+	 * @return string
 	 */
-	protected function pad($string, $factor, $char)
+	protected function pad(string $string, int $factor, string $char): string
 	{
 		$output = $string;
 		$length = strlen($string);
@@ -165,8 +179,9 @@ class Base32 implements Transcoder
 	 *
 	 * @param string $string
 	 * @param int $factor
+	 * @return string
 	 */
-	protected function trim($string, $factor)
+	protected function trim(string $string, int $factor): string
 	{
 		$output = $string;
 		$length = strlen($string);
@@ -183,7 +198,7 @@ class Base32 implements Transcoder
 	 * @param int $type
 	 * @return array
 	 */
-	protected function getEncodingAlphabet($type)
+	protected function getEncodingAlphabet(int $type): array
 	{
 		return $this->getAlphabet($type, self::ENCODE);
 	}
@@ -192,7 +207,7 @@ class Base32 implements Transcoder
 	 * @param int $type
 	 * @return array
 	 */
-	protected function getDecodingAlphabet($type)
+	protected function getDecodingAlphabet(int $type): array
 	{
 		return $this->getAlphabet($type, self::DECODE);
 	}
@@ -203,7 +218,7 @@ class Base32 implements Transcoder
 	 * @return array
 	 * @throws \InvalidArgumentException
 	 */
-	protected function getAlphabet($type, $mode)
+	protected function getAlphabet(int $type, int $mode): array
 	{
 		if (!isset($this->alphabet[$type])) {
 			throw new \InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));

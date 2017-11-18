@@ -1,16 +1,13 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
+  - 7.1
 
-install: travis_retry composer update -n
+install: travis_retry composer install --no-interaction
 
 script:
   - vendor/bin/tester -s -p php tests
-  - vendor/bin/phpcpd -n src
-  - vendor/bin/phpmd src text phpmd_ruleset.xml
+  - vendor/bin/phpcpd -n src tests
+  - vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
   - vendor/bin/phpcs --standard=phpcs_ruleset.xml src
+  - vendor/bin/phpstan analyse --no-progress src tests
