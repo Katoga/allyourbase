@@ -7,7 +7,7 @@ install: travis_retry composer install --no-interaction
 
 script:
   - vendor/bin/tester -s -p php tests
-  - vendor/bin/phpcpd -n src
-  - vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode
+  - vendor/bin/phpcpd -n src tests
+  - vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
   - vendor/bin/phpcs --standard=phpcs_ruleset.xml src
   - vendor/bin/phpstan analyse --no-progress src tests
