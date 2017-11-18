@@ -17,6 +17,7 @@ class Base91 implements Transcoder
 	/**
 	 * @param string $input binary string
 	 * @return string ascii string
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 * @SuppressWarnings(PHPMD.ShortVariable)
 	 */
 	public function encode(string $input): string
@@ -65,6 +66,7 @@ class Base91 implements Transcoder
 	 * @param string $input ascii string
 	 * @return string binary string
 	 * @throws DecodeFailedException
+	 * @SuppressWarnings(PHPMD.ElseExpression)
 	 * @SuppressWarnings(PHPMD.ShortVariable)
 	 */
 	public function decode(string $input): string
