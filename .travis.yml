@@ -10,3 +10,4 @@ script:
   - vendor/bin/phpcpd -n src
   - vendor/bin/phpmd src text phpmd_ruleset.xml
   - vendor/bin/phpcs --standard=phpcs_ruleset.xml src
+  - vendor/bin/phpstan analyse --no-progress src tests
