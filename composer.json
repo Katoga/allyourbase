@@ -17,7 +17,7 @@
 		"sebastian/phpcpd": "~4.0.0",
 		"phpmd/phpmd" : "~2.6.0",
 		"squizlabs/php_codesniffer": "~3.2.0",
-		"phpstan/phpstan": "~0.8.5",
+		"phpstan/phpstan": "~0.9.0",
 		"roave/security-advisories": "dev-master"
 	},
 	"autoload": {
