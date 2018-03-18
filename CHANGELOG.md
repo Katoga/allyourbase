@@ -1,5 +1,9 @@
 # Allyourbase CHANGELOG
 
+# 2.1.0
+- Katoga - Update dependencies to latest versions
+- Katoga - Add support for PHP 7.2
+
 # 2.0.0
 - Katoga - Refactor to support PHP 7.1 only
 
