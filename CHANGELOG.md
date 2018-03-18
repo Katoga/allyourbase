@@ -1,5 +1,13 @@
 # Allyourbase CHANGELOG
 
+# 1.2.2
+- Katoga - Fix PHP dependencies for PHP 5.4 and 5.5
+
+# 1.2.1
+- Katoga - Add Travis testing
+- Katoga - Add linters (phpcpd, phpmd, phpcs)
+- Katoga - Fix exception in Base32::getAlphabet()
+
 # 1.2.0
 - Katoga - Add Douglas Crockford's variant of Base32
 
