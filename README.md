@@ -24,6 +24,7 @@ $plain = $b64->decode($encoded);
 | 7.0 | 🗸 | ❌ |
 | 7.1 | 🗸 | ✔️ |
 | 7.2 | 🗸 | ✔️ |
+| 7.3 | 🗸 | ✔️ |
 
 ✔️ preferred (should be used)  
 🗸 supported (can but shouldn't be used)  
