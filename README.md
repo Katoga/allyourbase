@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Katoga/allyourbase.svg?branch=master)](https://travis-ci.org/Katoga/allyourbase)
+[![Build Status](https://travis-ci.org/Katoga/allyourbase.svg?branch=release-v1)](https://travis-ci.org/Katoga/allyourbase)
 
 # Allyourbase
 Collection of binary-to-ascii encoders.
@@ -16,15 +16,4 @@ $plain = $b64->decode($encoded);
 ```
 
 ## Supported versions
-| PHP | [v1](https://github.com/Katoga/allyourbase/tree/release-v1) | [v2](https://github.com/Katoga/allyourbase/tree/master) |
-| --- | --- | --- |
-| 5.4 | 🗸 | ❌ |
-| 5.5 | 🗸 | ❌ |
-| 5.6 | ✔️ | ❌ |
-| 7.0 | 🗸 | ❌ |
-| 7.1 | 🗸 | ✔️ |
-| 7.2 | 🗸 | ✔️ |
-
-✔️ preferred (should be used)  
-🗸 supported (can but shouldn't be used)  
-❌ unsupported  (can't be used)
+Version [v1](https://github.com/Katoga/allyourbase/tree/release-v1) is deprecated and only PHP 5.6 compatibility is tested. For supported versions of PHP 7 see [v2](https://github.com/Katoga/allyourbase/tree/master).
