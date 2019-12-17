@@ -273,7 +273,7 @@ class Base32 implements Transcoder
 					$lowercase = range('a', 'z');
 					unset($lowercase[20]);
 					foreach ($lowercase as $ch) {
-						$decodeCrockford[$ch] = $decodeCrockford[strtoupper($ch)];
+						$decodeCrockford[$ch] = $decodeCrockford[strtoupper((string) $ch)];
 					}
 
 					$this->alphabet[$type][self::DECODE] = $decodeCrockford;

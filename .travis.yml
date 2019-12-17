@@ -13,4 +13,4 @@ script:
   - vendor/bin/phpcpd -n src tests
   - vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
   - vendor/bin/phpcs --standard=phpcs_ruleset.xml src
-  - vendor/bin/phpstan analyse --level 4 --no-progress src tests
+  - vendor/bin/phpstan analyse --level 5 --no-progress src tests
