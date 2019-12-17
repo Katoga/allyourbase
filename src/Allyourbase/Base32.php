@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Katoga\Allyourbase;
 
+use InvalidArgumentException;
+
 /**
  * @author Katoga <katoga.cz@hotmail.com>
  */
@@ -221,11 +223,11 @@ class Base32 implements Transcoder
 	protected function getAlphabet(int $type, int $mode): array
 	{
 		if (!isset($this->alphabet[$type])) {
-			throw new \InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));
+			throw new InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));
 		}
 
 		if (!isset($this->alphabet[$type][$mode])) {
-			throw new \InvalidArgumentException(sprintf('Wrong mode requested: "%s"!', $mode));
+			throw new InvalidArgumentException(sprintf('Wrong mode requested: "%s"!', $mode));
 		}
 
 		if (empty($this->alphabet[$type][$mode])) {
@@ -271,7 +273,7 @@ class Base32 implements Transcoder
 					$lowercase = range('a', 'z');
 					unset($lowercase[20]);
 					foreach ($lowercase as $ch) {
-						$decodeCrockford[$ch] = $decodeCrockford[strtoupper($ch)];
+						$decodeCrockford[$ch] = $decodeCrockford[strtoupper((string) $ch)];
 					}
 
 					$this->alphabet[$type][self::DECODE] = $decodeCrockford;

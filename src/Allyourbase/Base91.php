@@ -32,7 +32,7 @@ class Base91 implements Transcoder
 			$n = null;
 
 			for ($i = 0; $i < $length; $i++) {
-				$b |= ord($input{$i}) << $n;
+				$b |= ord($input[$i]) << $n;
 				$n += 8;
 
 				if ($n > 13) {
@@ -82,11 +82,11 @@ class Base91 implements Transcoder
 			$v = -1;
 
 			for ($i = 0; $i < $length; $i++) {
-				if (!isset($alphabet[$input{$i}])) {
+				if (!isset($alphabet[$input[$i]])) {
 						throw new DecodeFailedException();
 				}
 
-				$c = $alphabet[$input{$i}];
+				$c = $alphabet[$input[$i]];
 
 				if ($v < 0) {
 						$v = $c;

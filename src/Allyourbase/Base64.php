@@ -20,7 +20,7 @@ class Base64 implements Transcoder
 		if ($input != '') {
 			$output = base64_encode($input);
 
-			if ($output === false) {
+			if (empty($output)) {
 				throw new EncodeFailedException();
 			}
 		}
