@@ -56,7 +56,7 @@ class Base32 implements Transcoder
 	protected $type = self::RFC4648;
 
 	/**
-	 * @var array
+	 * @var array<array<array<string>>>
 	 */
 	protected $alphabet = [
 		self::RFC4648 => [
@@ -198,7 +198,7 @@ class Base32 implements Transcoder
 
 	/**
 	 * @param int $type
-	 * @return array
+	 * @return array<string>
 	 */
 	protected function getEncodingAlphabet(int $type): array
 	{
@@ -207,7 +207,7 @@ class Base32 implements Transcoder
 
 	/**
 	 * @param int $type
-	 * @return array
+	 * @return array<int>
 	 */
 	protected function getDecodingAlphabet(int $type): array
 	{
@@ -217,7 +217,7 @@ class Base32 implements Transcoder
 	/**
 	 * @param int $type
 	 * @param int $mode
-	 * @return array
+	 * @return array<string|int>
 	 * @throws \InvalidArgumentException
 	 */
 	protected function getAlphabet(int $type, int $mode): array

@@ -46,7 +46,6 @@ class Base16 implements Transcoder
 	 * @param string $errstr
 	 * @param string $errfile
 	 * @param int $errline
-	 * @param array $errcontext
 	 * @throws DecodeFailedException
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
@@ -54,9 +53,8 @@ class Base16 implements Transcoder
 		int $errno,
 		string $errstr,
 		string $errfile = '',
-		int $errline = 0,
-		array $errcontext = []
-	) {
+		int $errline = 0
+	): void {
 		restore_error_handler();
 
 		throw new DecodeFailedException();

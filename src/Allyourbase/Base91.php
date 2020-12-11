@@ -10,7 +10,7 @@ namespace Katoga\Allyourbase;
 class Base91 implements Transcoder
 {
 	/**
-	 * @var array
+	 * @var array<string>
 	 */
 	protected $alphabet;
 
@@ -111,7 +111,7 @@ class Base91 implements Transcoder
 	}
 
 	/**
-	 * @return array
+	 * @return array<int>
 	 */
 	protected function getDecodingAlphabet(): array
 	{
@@ -119,7 +119,7 @@ class Base91 implements Transcoder
 	}
 
 	/**
-	 * @return array
+	 * @return array<string>
 	 */
 	protected function getAlphabet(): array
 	{

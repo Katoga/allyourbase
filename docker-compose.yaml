@@ -222,7 +222,7 @@ services:
         chmod u+x /usr/local/bin/composer
         rm -rf ./vendor compsoer.lock
         composer update --optimize-autoloader
-        ./vendor/bin/phpstan analyse --level 5 --no-progress src tests
+        ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
     volumes:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
@@ -239,7 +239,7 @@ services:
         chmod u+x /usr/local/bin/composer
         rm -rf ./vendor compsoer.lock
         composer update --optimize-autoloader
-        ./vendor/bin/phpstan analyse --level 5 --no-progress src tests
+        ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
     volumes:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
@@ -256,7 +256,7 @@ services:
         chmod u+x /usr/local/bin/composer
         rm -rf ./vendor compsoer.lock
         composer update --optimize-autoloader
-        ./vendor/bin/phpstan analyse --level 5 --no-progress src tests
+        ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
     volumes:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
