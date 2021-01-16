@@ -12,22 +12,26 @@ class Base32 implements Transcoder
 {
 
 	/**
-	 * A-Z, 2-7
 	 * New RFC that obsoleted RFC3548, uses the same alphabet.
+	 *
+	 * A-Z, 2-7
 	 *
 	 * @var int
 	 */
 	public const RFC4648 = 1;
 
 	/**
+	 * "Extended hex" or "base32hex".
+	 *
 	 * 0-9, A-V
-	 * "Extended hex" or "base32hex"
 	 *
 	 * @var int
 	 */
 	public const RFC2938 = 2;
 
 	/**
+	 * Douglas Crockford's vairant
+	 *
 	 * 0-9, A-Z without I, L, O, U
 	 *
 	 * @link https://www.crockford.com/wrmg/base32.html
@@ -46,7 +50,7 @@ class Base32 implements Transcoder
 	protected int $type = self::RFC4648;
 
 	/**
-	 * @var array<array<string>>
+	 * @var array<int, array<int, string>>
 	 */
 	protected array $alphabet = [
 		self::RFC4648 => [],
@@ -55,7 +59,7 @@ class Base32 implements Transcoder
 	];
 
 	/**
-	 * @param int $type = self::RFC4648
+	 * @param int $type type of alphabet to use
 	 */
 	public function __construct(int $type = self::RFC4648)
 	{
@@ -192,7 +196,7 @@ class Base32 implements Transcoder
 
 	/**
 	 * @var int $type
-	 * @return array<string>
+	 * @return array<int, string>
 	 */
 	protected function getAlphabet(int $type): array
 	{
