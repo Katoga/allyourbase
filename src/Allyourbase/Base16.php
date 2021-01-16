@@ -38,7 +38,7 @@ class Base16 implements Transcoder
 			restore_error_handler();
 		}
 
-		return $output;
+		return (string) $output;
 	}
 
 	/**
