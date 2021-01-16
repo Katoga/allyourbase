@@ -175,3 +175,15 @@ services:
     volumes:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
+
+  phpdoc:
+    image: phpdoc/phpdoc:3.0.0
+    working_dir: /opt/allyourbase
+    command:
+      - run
+      - -d
+      - src
+      - -t
+      - docs
+    volumes:
+      - ./:/opt/allyourbase
