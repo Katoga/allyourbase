@@ -74,7 +74,7 @@ class Base91 implements Transcoder
 		$output = '';
 
 		if ($input != '') {
-			$alphabet = $this->getDecodingAlphabet();
+			$alphabet = array_flip($this->getAlphabet());
 
 			$length = strlen($input);
 			$b = null;
@@ -111,30 +111,52 @@ class Base91 implements Transcoder
 	}
 
 	/**
-	 * @return array<int>
-	 */
-	protected function getDecodingAlphabet(): array
-	{
-		return array_flip($this->getAlphabet());
-	}
-
-	/**
 	 * @return array<string>
 	 */
 	protected function getAlphabet(): array
 	{
 		if (!$this->alphabet) {
+			$uppercase = range('A', 'Z');
+
+			$lowercase = range('a', 'z');
+
+			$numbersRange = range('0', '9');
+			$numbers = array_map(
+				'strval',
+				$numbersRange,
+			);
+
+			$symbols1Range = range('!', '/');
+			$symbols1Excluded = [
+				'"',
+				"'",
+				'-',
+			];
+			$symbols1 = array_values(array_diff($symbols1Range, $symbols1Excluded));
+
+			$symbols2 = range(':', '@');
+
+			$symbols3Range = range('[', '`');
+			$symbols3Excluded = [
+				'\\'
+			];
+			$symbols3 = array_values(array_diff($symbols3Range, $symbols3Excluded));
+
+			$symbols4 = range('{', '~');
+
+			$symbols5 = [
+				'"'
+			];
+
 			$this->alphabet = array_merge(
-				range('A', 'Z'),
-				range('a', 'z'),
-				[
-					'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-					'!', '#', '$', '%', '&',
-					'(', ')', '*', '+', ',',
-					'.', '/',
-					':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_',
-					'`', '{', '|', '}', '~', '"'
-				]
+				$uppercase,
+				$lowercase,
+				$numbers,
+				$symbols1,
+				$symbols2,
+				$symbols3,
+				$symbols4,
+				$symbols5,
 			);
 		}
 
