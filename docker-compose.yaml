@@ -12,7 +12,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/tester -s -p php tests
     volumes:
@@ -29,7 +29,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/tester -s -p php tests
     volumes:
@@ -47,7 +47,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcpd src tests
     volumes:
@@ -64,7 +64,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcpd src tests
     volumes:
@@ -82,7 +82,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
     volumes:
@@ -99,7 +99,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
     volumes:
@@ -117,7 +117,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcs --standard=phpcs_ruleset.xml src
     volumes:
@@ -134,7 +134,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcs --standard=phpcs_ruleset.xml src
     volumes:
@@ -152,7 +152,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        # rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
     volumes:
@@ -169,7 +169,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
     volumes:
