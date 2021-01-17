@@ -16,5 +16,6 @@ $plain = $b64->decode($encoded);
 ```
 
 ## Supported versions
-Release [v2](https://github.com/Katoga/allyourbase/tree/master) is tested in every supported PHP 7 and PHP 8. \
-Release [v1](https://github.com/Katoga/allyourbase/tree/release-v1) is legacy and tested with PHP 5.6 only.
+- [v3](https://github.com/Katoga/allyourbase/tree/master): PHP 8
+- [v2](https://github.com/Katoga/allyourbase/tree/release-v2): PHP 7.4
+- [v1](https://github.com/Katoga/allyourbase/tree/release-v1): PHP 5.6
