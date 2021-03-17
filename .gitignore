@@ -4,3 +4,6 @@ composer.lock
 
 # Tester
 /tests/**/output/
+
+# PHPDoc
+.phpdoc

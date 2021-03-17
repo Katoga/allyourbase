@@ -12,69 +12,54 @@ class Base32 implements Transcoder
 {
 
 	/**
-	 * A-Z, 2-7
 	 * New RFC that obsoleted RFC3548, uses the same alphabet.
 	 *
-	 * @var int
-	 */
-	const RFC4648 = 1;
-
-	/**
-	 * 0-9, A-V
-	 * "Extended hex" or "base32hex"
+	 * A-Z, 2-7
 	 *
 	 * @var int
 	 */
-	const RFC2938 = 2;
+	public const RFC4648 = 1;
 
 	/**
+	 * "Extended hex" or "base32hex".
+	 *
+	 * 0-9, A-V
+	 *
+	 * @var int
+	 */
+	public const RFC2938 = 2;
+
+	/**
+	 * Douglas Crockford's vairant
+	 *
 	 * 0-9, A-Z without I, L, O, U
 	 *
-	 * @link http://www.crockford.com/wrmg/base32.html
+	 * @link https://www.crockford.com/wrmg/base32.html
 	 * @var int
 	 */
-	const CROCKFORD = 3;
+	public const CROCKFORD = 3;
 
 	/**
 	 * @var string
 	 */
-	const PAD_CHAR = '=';
+	protected const PAD_CHAR = '=';
 
 	/**
 	 * @var int
 	 */
-	const ENCODE = 1;
+	protected int $type = self::RFC4648;
 
 	/**
-	 * @var int
+	 * @var array<int, array<int, string>>
 	 */
-	const DECODE = 2;
-
-	/**
-	 * @var int
-	 */
-	protected $type = self::RFC4648;
-
-	/**
-	 * @var array<array<array<string>>>
-	 */
-	protected $alphabet = [
-		self::RFC4648 => [
-			self::ENCODE => [],
-			self::DECODE => [],
-		],
-		self::RFC2938 => [
-			self::ENCODE => [],
-			self::DECODE => [],
-		],
-		self::CROCKFORD => [
-			self::ENCODE => [],
-			self::DECODE => [],
-		],
+	protected array $alphabet = [
+		self::RFC4648 => [],
+		self::RFC2938 => [],
+		self::CROCKFORD => [],
 	];
 
 	/**
-	 * @param int $type = self::RFC4648
+	 * @param int $type type of alphabet to use
 	 */
 	public function __construct(int $type = self::RFC4648)
 	{
@@ -90,7 +75,8 @@ class Base32 implements Transcoder
 		$output = '';
 
 		if ($input != '') {
-			$alphabet = $this->getEncodingAlphabet($this->type);
+			$alphabet = $this->getAlphabet($this->type);
+
 			// create binary represantation of input string
 			$binStr = '';
 			foreach (str_split($input) as $char) {
@@ -99,6 +85,7 @@ class Base32 implements Transcoder
 				// or portions of splitted multibyte chars
 				$binStr .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
 			}
+
 			// pad binary string, its length has to be divisible by 5
 			$binStr = $this->pad($binStr, 5, '0');
 
@@ -111,7 +98,7 @@ class Base32 implements Transcoder
 			}
 
 			// pad output, its length has to be divisible by 8
-			$output = $this->pad($output, 8, self::PAD_CHAR);
+			$output = $this->pad($output, 8, static::PAD_CHAR);
 		}
 
 		return $output;
@@ -127,10 +114,19 @@ class Base32 implements Transcoder
 		$output = '';
 
 		if ($input != '') {
-			$alphabet = $this->getDecodingAlphabet($this->type);
+			$alphabet = array_flip($this->getAlphabet($this->type));
 
-			// convert input to uppercase and remove trailing padding chars
-			$input = rtrim(strtoupper($input), self::PAD_CHAR);
+			if ($this->type == static::CROCKFORD) {
+				$input = str_ireplace(
+					['i', 'l', 'o'],
+					['1', '1', '0'],
+					$input,
+				);
+			}
+
+			$input = strtoupper($input);
+
+			$input = rtrim($input, static::PAD_CHAR);
 
 			$binStr = '';
 			foreach (str_split($input) as $ch) {
@@ -148,7 +144,7 @@ class Base32 implements Transcoder
 			$binArr = explode(' ', trim(chunk_split($binStr, 8, ' ')));
 
 			foreach ($binArr as $bin) {
-				$output .= chr(bindec($bin));
+				$output .= chr((int) bindec($bin));
 			}
 		}
 
@@ -166,6 +162,7 @@ class Base32 implements Transcoder
 	protected function pad(string $string, int $factor, string $char): string
 	{
 		$output = $string;
+
 		$length = strlen($string);
 		$modulo = $length % $factor;
 		if ($modulo != 0) {
@@ -186,6 +183,7 @@ class Base32 implements Transcoder
 	protected function trim(string $string, int $factor): string
 	{
 		$output = $string;
+
 		$length = strlen($string);
 		$modulo = $length % $factor;
 		if ($modulo != 0) {
@@ -197,90 +195,78 @@ class Base32 implements Transcoder
 	}
 
 	/**
-	 * @param int $type
-	 * @return array<string>
+	 * @var int $type
+	 * @return array<int, string>
 	 */
-	protected function getEncodingAlphabet(int $type): array
+	protected function getAlphabet(int $type): array
 	{
-		return $this->getAlphabet($type, self::ENCODE);
+		$this->checkAlphabetType($type);
+
+		if (!$this->alphabet[$type]) {
+			$this->generateAlphabet($type);
+		}
+
+		return $this->alphabet[$type];
 	}
 
 	/**
-	 * @param int $type
-	 * @return array<int>
+	 * @var int $type
+	 * @return void
 	 */
-	protected function getDecodingAlphabet(int $type): array
+	protected function generateAlphabet(int $type): void
 	{
-		return $this->getAlphabet($type, self::DECODE);
+		$this->checkAlphabetType($type);
+
+		switch ($type) {
+			case static::RFC4648:
+				$this->alphabet[$type] = array_merge(
+					range('A', 'Z'),
+					array_map(
+						'strval',
+						range('2', '7'),
+					),
+				);
+				break;
+			case static::RFC2938:
+				$this->alphabet[$type] = array_merge(
+					array_map(
+						'strval',
+						range('0', '9'),
+					),
+					range('A', 'V'),
+				);
+				break;
+			case static::CROCKFORD:
+				$this->alphabet[$type] = array_merge(
+					array_map(
+						'strval',
+						range('0', '9'),
+					),
+					range('A', 'H'),
+					range('J', 'K'),
+					range('M', 'N'),
+					range('P', 'T'),
+					range('V', 'Z'),
+				);
+				break;
+		}
 	}
 
 	/**
-	 * @param int $type
-	 * @param int $mode
-	 * @return array<string|int>
-	 * @throws \InvalidArgumentException
+	 * @var int $type
+	 * @return void
+	 * @throws InvalidArgumentException
 	 */
-	protected function getAlphabet(int $type, int $mode): array
+	protected function checkAlphabetType(int $type): void
 	{
-		if (!isset($this->alphabet[$type])) {
-			throw new InvalidArgumentException(sprintf('Wrong alphabet requested: "%s"!', $type));
+		if (!array_key_exists($type, $this->alphabet)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'Wrong type provided: "%s", supported types: "%s"',
+					$type,
+					implode('", "', array_keys($this->alphabet))
+				)
+			);
 		}
-
-		if (!isset($this->alphabet[$type][$mode])) {
-			throw new InvalidArgumentException(sprintf('Wrong mode requested: "%s"!', $mode));
-		}
-
-		if (empty($this->alphabet[$type][$mode])) {
-			// generate the requested alphabet
-			switch ($type) {
-				case self::RFC4648:
-					$alphabet = array_merge(
-						range('A', 'Z'),
-						['2', '3', '4', '5', '6', '7']
-					);
-					$this->alphabet[$type][self::ENCODE] = $alphabet;
-					$this->alphabet[$type][self::DECODE] = array_flip($alphabet);
-					break;
-
-				case self::RFC2938:
-					$alphabet = array_merge(
-						['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-						range('A', 'V')
-					);
-					$this->alphabet[$type][self::ENCODE] = $alphabet;
-					$this->alphabet[$type][self::DECODE] = array_flip($alphabet);
-					break;
-
-				case self::CROCKFORD:
-					$alphabet = array_merge(
-						['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-						array_diff(
-							range('A', 'Z'),
-							['I', 'L', 'O', 'U']
-						)
-					);
-					$this->alphabet[$type][self::ENCODE] = $alphabet;
-
-					$decodeCrockford = array_merge(
-						array_flip($alphabet),
-						[
-							'I' => 1,
-							'L' => 1,
-							'O' => 0
-						]
-					);
-
-					$lowercase = range('a', 'z');
-					unset($lowercase[20]);
-					foreach ($lowercase as $ch) {
-						$decodeCrockford[$ch] = $decodeCrockford[strtoupper((string) $ch)];
-					}
-
-					$this->alphabet[$type][self::DECODE] = $decodeCrockford;
-					break;
-			}
-		}
-
-		return $this->alphabet[$type][$mode];
 	}
 }

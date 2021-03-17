@@ -2,25 +2,8 @@ version: '3.8'
 
 services:
   # test
-  test-7.3:
-    image: php:7.3-alpine3.12
-    working_dir: /opt/allyourbase
-    command:
-      - sh
-      - -c
-      - |
-        set -eu
-        curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
-        chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
-        composer update --optimize-autoloader
-        ./vendor/bin/tester -s -p php tests
-    volumes:
-      - ./:/opt/allyourbase
-      - ~/.composer/cache:/root/.composer/cache
-
   test-7.4:
-    image: php:7.4-alpine3.12
+    image: php:7.4-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -29,7 +12,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/tester -s -p php tests
     volumes:
@@ -37,7 +20,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   test-8.0:
-    image: php:8.0-alpine3.12
+    image: php:8.0-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -46,7 +29,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/tester -s -p php tests
     volumes:
@@ -54,25 +37,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpcpd
-  phpcpd-7.3:
-    image: php:7.3-alpine3.12
-    working_dir: /opt/allyourbase
-    command:
-      - sh
-      - -c
-      - |
-        set -eu
-        curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
-        chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
-        composer update --optimize-autoloader
-        ./vendor/bin/phpcpd src tests
-    volumes:
-      - ./:/opt/allyourbase
-      - ~/.composer/cache:/root/.composer/cache
-
   phpcpd-7.4:
-    image: php:7.4-alpine3.12
+    image: php:7.4-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -81,7 +47,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcpd src tests
     volumes:
@@ -89,7 +55,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   phpcpd-8.0:
-    image: php:8.0-alpine3.12
+    image: php:8.0-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -98,7 +64,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcpd src tests
     volumes:
@@ -106,25 +72,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpmd
-  phpmd-7.3:
-    image: php:7.3-alpine3.12
-    working_dir: /opt/allyourbase
-    command:
-      - sh
-      - -c
-      - |
-        set -eu
-        curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
-        chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
-        composer update --optimize-autoloader
-        ./vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
-    volumes:
-      - ./:/opt/allyourbase
-      - ~/.composer/cache:/root/.composer/cache
-
   phpmd-7.4:
-    image: php:7.4-alpine3.12
+    image: php:7.4-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -133,7 +82,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
     volumes:
@@ -141,7 +90,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   phpmd-8.0:
-    image: php:8.0-alpine3.12
+    image: php:8.0-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -150,7 +99,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode
     volumes:
@@ -158,25 +107,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpcs
-  phpcs-7.3:
-    image: php:7.3-alpine3.12
-    working_dir: /opt/allyourbase
-    command:
-      - sh
-      - -c
-      - |
-        set -eu
-        curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
-        chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
-        composer update --optimize-autoloader
-        ./vendor/bin/phpcs --standard=phpcs_ruleset.xml src
-    volumes:
-      - ./:/opt/allyourbase
-      - ~/.composer/cache:/root/.composer/cache
-
   phpcs-7.4:
-    image: php:7.4-alpine3.12
+    image: php:7.4-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -185,7 +117,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcs --standard=phpcs_ruleset.xml src
     volumes:
@@ -193,7 +125,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   phpcs-8.0:
-    image: php:8.0-alpine3.12
+    image: php:8.0-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -202,7 +134,7 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpcs --standard=phpcs_ruleset.xml src
     volumes:
@@ -210,25 +142,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpstan
-  phpstan-7.3:
-    image: php:7.3-alpine3.12
-    working_dir: /opt/allyourbase
-    command:
-      - sh
-      - -c
-      - |
-        set -eu
-        curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
-        chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
-        composer update --optimize-autoloader
-        ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
-    volumes:
-      - ./:/opt/allyourbase
-      - ~/.composer/cache:/root/.composer/cache
-
   phpstan-7.4:
-    image: php:7.4-alpine3.12
+    image: php:7.4-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -237,15 +152,15 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        # rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
-        ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
+        ./vendor/bin/phpstan analyse --level 8 --no-progress src tests
     volumes:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
 
   phpstan-8.0:
-    image: php:8.0-alpine3.12
+    image: php:8.0-alpine3.13
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -254,9 +169,21 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        rm -rf ./vendor compsoer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
-        ./vendor/bin/phpstan analyse --level 6 --no-progress src tests
+        ./vendor/bin/phpstan analyse --level 8 --no-progress src tests
     volumes:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
+
+  phpdoc:
+    image: phpdoc/phpdoc:3.0.0
+    working_dir: /opt/allyourbase
+    command:
+      - run
+      - -d
+      - src
+      - -t
+      - docs
+    volumes:
+      - ./:/opt/allyourbase
