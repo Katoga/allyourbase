@@ -15,12 +15,17 @@ jobs:
   validate:
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - macos-12
-    runs-on: ${{ matrix.os }}
+        php-version:
+          - '8.0'
+          - '8.1'
+    runs-on: ubuntu-22.04
+    container: php:${{ matrix.php-version }}-alpine
     steps:
       - uses: actions/checkout@v3
+      - name: Install composer
+        run: |
+          curl -LfSs https://getcomposer.org/download/2.4.4/composer.phar -o /usr/local/bin/composer
+          chmod a+x /usr/local/bin/composer
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
