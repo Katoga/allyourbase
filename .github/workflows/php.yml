@@ -12,7 +12,53 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  validate:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-12
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+  test:
+    needs:
+      - validate
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-12
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run test suite
+        run: composer run-script tester
+
+  lint:
+    needs:
+      - validate
     strategy:
       matrix:
         os:
@@ -38,9 +84,6 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
-
-      - name: Run test suite
-        run: composer run-script tester
 
       - name: Run PHPCPD
         run: composer run-script phpcpd
