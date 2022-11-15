@@ -27,7 +27,7 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
-  test:
+  install-dependencies:
     needs:
       - validate
     strategy:
@@ -52,13 +52,37 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
+
+
+  test:
+    needs:
+      - install-dependencies
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-12
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
       - name: Run test suite
         run: composer run-script tester
 
-  lint:
+  phpcpd:
     needs:
-      - validate
+      - install-dependencies
     strategy:
       matrix:
         os:
@@ -70,8 +94,31 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Run phpcpd
+        run: composer run-script phpcpd
+
+  phpmd:
+    needs:
+      - install-dependencies
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-12
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Cache Composer packages
         id: composer-cache
@@ -82,17 +129,58 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Run PHPCPD
-        run: composer run-script phpcpd
-
-      - name: Run PHPMD
+      - name: Run phpmd
         run: composer run-script phpmd
 
-      - name: Run PHPCS
+  phpcs:
+    needs:
+      - install-dependencies
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-12
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Run phpcs
         run: composer run-script phpcs
 
-      - name: Run PHPStan
+
+  phpstan:
+    needs:
+      - install-dependencies
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - macos-12
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Run phpstan
         run: composer run-script phpstan
