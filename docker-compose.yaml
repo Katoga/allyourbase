@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   # test
-  test-7.4:
-    image: php:7.4-alpine3.13
+  test-8.0:
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -19,8 +19,8 @@ services:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
 
-  test-8.0:
-    image: php:8.0-alpine3.13
+  test-8.1:
+    image: php:8.1-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -37,8 +37,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpcpd
-  phpcpd-7.4:
-    image: php:7.4-alpine3.13
+  phpcpd-8.0:
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -54,8 +54,8 @@ services:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
 
-  phpcpd-8.0:
-    image: php:8.0-alpine3.13
+  phpcpd-8.1:
+    image: php:8.1-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -72,8 +72,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpmd
-  phpmd-7.4:
-    image: php:7.4-alpine3.13
+  phpmd-8.0:
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -89,8 +89,8 @@ services:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
 
-  phpmd-8.0:
-    image: php:8.0-alpine3.13
+  phpmd-8.1:
+    image: php:8.1-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -107,8 +107,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpcs
-  phpcs-7.4:
-    image: php:7.4-alpine3.13
+  phpcs-8.0:
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -124,8 +124,8 @@ services:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
 
-  phpcs-8.0:
-    image: php:8.0-alpine3.13
+  phpcs-8.1:
+    image: php:8.1-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -142,8 +142,8 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   # phpstan
-  phpstan-7.4:
-    image: php:7.4-alpine3.13
+  phpstan-8.0:
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -152,15 +152,15 @@ services:
         set -eu
         curl -LfSs -o /usr/local/bin/composer https://getcomposer.org/composer-2.phar
         chmod u+x /usr/local/bin/composer
-        # rm -rf ./vendor composer.lock
+        rm -rf ./vendor composer.lock
         composer update --optimize-autoloader
         ./vendor/bin/phpstan analyse --level 8 --no-progress src tests
     volumes:
       - ./:/opt/allyourbase
       - ~/.composer/cache:/root/.composer/cache
 
-  phpstan-8.0:
-    image: php:8.0-alpine3.13
+  phpstan-8.1:
+    image: php:8.1-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -177,7 +177,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   phpdoc:
-    image: phpdoc/phpdoc:3.0.0
+    image: phpdoc/phpdoc:3.3.1
     working_dir: /opt/allyourbase
     command:
       - run
