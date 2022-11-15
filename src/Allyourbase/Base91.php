@@ -47,7 +47,7 @@ class Base91 implements Transcoder
 						$n -= 14;
 					}
 
-					$output .= $alphabet[$v % 91] . $alphabet[$v / 91];
+					$output .= $alphabet[(int) ($v % 91)] . $alphabet[(int) ($v / 91)];
 				}
 			}
 
