@@ -18,12 +18,9 @@ jobs:
         os:
           - ubuntu-22.04
           - macos-12
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
@@ -35,12 +32,9 @@ jobs:
         os:
           - ubuntu-22.04
           - macos-12
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -49,10 +43,8 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
-
 
   test:
     needs:
@@ -62,12 +54,9 @@ jobs:
         os:
           - ubuntu-22.04
           - macos-12
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -76,7 +65,6 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Run test suite
         run: composer run-script tester
 
@@ -88,12 +76,9 @@ jobs:
         os:
           - ubuntu-22.04
           - macos-12
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -102,7 +87,6 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Run phpcpd
         run: composer run-script phpcpd
 
@@ -114,12 +98,9 @@ jobs:
         os:
           - ubuntu-22.04
           - macos-12
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -128,7 +109,6 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Run phpmd
         run: composer run-script phpmd
 
@@ -140,12 +120,9 @@ jobs:
         os:
           - ubuntu-22.04
           - macos-12
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -154,10 +131,8 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Run phpcs
         run: composer run-script phpcs
-
 
   phpstan:
     needs:
@@ -167,12 +142,9 @@ jobs:
         os:
           - ubuntu-22.04
           - macos-12
-
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -181,6 +153,5 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Run phpstan
         run: composer run-script phpstan
