@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # test
   test-8.0:
-    image: php:8.0-alpine3.13
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -21,7 +21,7 @@ services:
 
   # phpcpd
   phpcpd-8.0:
-    image: php:8.0-alpine3.13
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -39,7 +39,7 @@ services:
 
   # phpmd
   phpmd-8.0:
-    image: php:8.0-alpine3.13
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -57,7 +57,7 @@ services:
 
   # phpcs
   phpcs-8.0:
-    image: php:8.0-alpine3.13
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -75,7 +75,7 @@ services:
 
   # phpstan
   phpstan-8.0:
-    image: php:8.0-alpine3.13
+    image: php:8.0-alpine3.16
     working_dir: /opt/allyourbase
     command:
       - sh
