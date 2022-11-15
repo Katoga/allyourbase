@@ -42,12 +42,21 @@ jobs:
       - validate
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - macos-12
-    runs-on: ${{ matrix.os }}
+        php-version:
+          - '8.0'
+          - '8.1'
+    runs-on: ubuntu-22.04
+    container:
+      image: php:${{ matrix.php-version }}-alpine
+      env:
+        COMPOSER_VERSION: "$COMPOSER_VERSION"
+        COMPOSER_LOCATION: "$COMPOSER_LOCATION"
     steps:
       - uses: actions/checkout@v3
+      - name: Install composer
+        run: |
+          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
+          chmod a+x ${COMPOSER_LOCATION}
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -57,19 +66,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: '"$COMPOSER_LOCATION" install --prefer-dist --no-progress'
 
   test:
     needs:
       - install-dependencies
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - macos-12
-    runs-on: ${{ matrix.os }}
+        php-version:
+          - '8.0'
+          - '8.1'
+    runs-on: ubuntu-22.04
+    container:
+      image: php:${{ matrix.php-version }}-alpine
+      env:
+        COMPOSER_VERSION: "$COMPOSER_VERSION"
+        COMPOSER_LOCATION: "$COMPOSER_LOCATION"
     steps:
       - uses: actions/checkout@v3
+      - name: Install composer
+        run: |
+          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
+          chmod a+x ${COMPOSER_LOCATION}
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -79,19 +97,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
       - name: Run test suite
-        run: composer run-script tester
+        run: '"$COMPOSER_LOCATION" run-script tester'
 
   phpcpd:
     needs:
       - install-dependencies
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - macos-12
-    runs-on: ${{ matrix.os }}
+        php-version:
+          - '8.0'
+          - '8.1'
+    runs-on: ubuntu-22.04
+    container:
+      image: php:${{ matrix.php-version }}-alpine
+      env:
+        COMPOSER_VERSION: "$COMPOSER_VERSION"
+        COMPOSER_LOCATION: "$COMPOSER_LOCATION"
     steps:
       - uses: actions/checkout@v3
+      - name: Install composer
+        run: |
+          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
+          chmod a+x ${COMPOSER_LOCATION}
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -101,19 +128,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
       - name: Run phpcpd
-        run: composer run-script phpcpd
+        run: '"$COMPOSER_LOCATION" run-script phpcpd'
 
   phpmd:
     needs:
       - install-dependencies
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - macos-12
-    runs-on: ${{ matrix.os }}
+        php-version:
+          - '8.0'
+          - '8.1'
+    runs-on: ubuntu-22.04
+    container:
+      image: php:${{ matrix.php-version }}-alpine
+      env:
+        COMPOSER_VERSION: "$COMPOSER_VERSION"
+        COMPOSER_LOCATION: "$COMPOSER_LOCATION"
     steps:
       - uses: actions/checkout@v3
+      - name: Install composer
+        run: |
+          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
+          chmod a+x ${COMPOSER_LOCATION}
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -123,19 +159,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
       - name: Run phpmd
-        run: composer run-script phpmd
+        run: '"$COMPOSER_LOCATION" run-script phpmd'
 
   phpcs:
     needs:
       - install-dependencies
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - macos-12
-    runs-on: ${{ matrix.os }}
+        php-version:
+          - '8.0'
+          - '8.1'
+    runs-on: ubuntu-22.04
+    container:
+      image: php:${{ matrix.php-version }}-alpine
+      env:
+        COMPOSER_VERSION: "$COMPOSER_VERSION"
+        COMPOSER_LOCATION: "$COMPOSER_LOCATION"
     steps:
       - uses: actions/checkout@v3
+      - name: Install composer
+        run: |
+          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
+          chmod a+x ${COMPOSER_LOCATION}
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -145,19 +190,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
       - name: Run phpcs
-        run: composer run-script phpcs
+        run: '"$COMPOSER_LOCATION" run-script phpcs'
 
   phpstan:
     needs:
       - install-dependencies
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - macos-12
-    runs-on: ${{ matrix.os }}
+        php-version:
+          - '8.0'
+          - '8.1'
+    runs-on: ubuntu-22.04
+    container:
+      image: php:${{ matrix.php-version }}-alpine
+      env:
+        COMPOSER_VERSION: "$COMPOSER_VERSION"
+        COMPOSER_LOCATION: "$COMPOSER_LOCATION"
     steps:
       - uses: actions/checkout@v3
+      - name: Install composer
+        run: |
+          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
+          chmod a+x ${COMPOSER_LOCATION}
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -167,4 +221,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
       - name: Run phpstan
-        run: composer run-script phpstan
+        run: '"$COMPOSER_LOCATION" run-script phpstan'
