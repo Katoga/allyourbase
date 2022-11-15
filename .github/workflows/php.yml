@@ -18,6 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Show PHP info
+        run: php --version
+
+      - name: Show system info
+        run: cat /etc/os-release
+
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
