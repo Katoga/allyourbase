@@ -24,5 +24,12 @@
 		"psr-4": {
 			"Katoga\\": "src/"
 		}
+	},
+	"scripts": {
+		"tester": "vendor/bin/tester -s -p php tests",
+		"phpcpd": "vendor/bin/phpcpd src tests",
+		"phpmd": "vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode",
+		"phpcs": "vendor/bin/phpcs --standard=phpcs_ruleset.xml src",
+		"phpstan": "vendor/bin/phpstan analyse --level 8 --no-progress src tests"
 	}
 }
