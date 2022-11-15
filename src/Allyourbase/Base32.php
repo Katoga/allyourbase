@@ -195,7 +195,7 @@ class Base32 implements Transcoder
 	}
 
 	/**
-	 * @var int $type
+	 * @param int $type
 	 * @return array<int, string>
 	 */
 	protected function getAlphabet(int $type): array
@@ -210,7 +210,7 @@ class Base32 implements Transcoder
 	}
 
 	/**
-	 * @var int $type
+	 * @param int $type
 	 * @return void
 	 */
 	protected function generateAlphabet(int $type): void
@@ -253,7 +253,7 @@ class Base32 implements Transcoder
 	}
 
 	/**
-	 * @var int $type
+	 * @param int $type
 	 * @return void
 	 * @throws InvalidArgumentException
 	 */
