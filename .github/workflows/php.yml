@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+env:
+  COMPOSER_VERSION: '2.4.4'
+  COMPOSER_LOCATION: /usr/local/bin/composer
+
 jobs:
   validate:
     strategy:
@@ -19,15 +23,19 @@ jobs:
           - '8.0'
           - '8.1'
     runs-on: ubuntu-22.04
-    container: php:${{ matrix.php-version }}-alpine
+    container:
+      image: php:${{ matrix.php-version }}-alpine
+      env:
+        COMPOSER_VERSION: "$COMPOSER_VERSION"
+        COMPOSER_LOCATION: "$COMPOSER_LOCATION"
     steps:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs https://getcomposer.org/download/2.4.4/composer.phar -o /usr/local/bin/composer
-          chmod a+x /usr/local/bin/composer
+          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
+          chmod a+x ${COMPOSER_LOCATION}
       - name: Validate composer.json and composer.lock
-        run: composer validate --strict
+        run: '"$COMPOSER_LOCATION" validate --strict'
 
   install-dependencies:
     needs:
