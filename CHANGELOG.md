@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2022-11-15
+### Added
+- PHP 8.1 support
+- Github Actions testing
+### Changed
+- `nette/tester` 2.3 -> 2.4
+- `phpmd/phpmd` 2.9 -> 2.13
+- `squizlabs/php_codesniffer` 3.5 -> 3.7
+- `phpstan/phpstan` 0.12 -> 1.9
+### Removed
+- PHP 7.4 support
+- Travis CI testing
+
 ## [3.0.0] - 2021-03-17
 ### Added
 - PHP 8.0 support
