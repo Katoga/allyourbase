@@ -22,7 +22,7 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-          - '8.2-rc'
+          - '8.2'
     runs-on: ubuntu-22.04
     container:
       image: php:${{ matrix.php-version }}-alpine
@@ -46,7 +46,7 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-          - '8.2-rc'
+          - '8.2'
     runs-on: ubuntu-22.04
     container:
       image: php:${{ matrix.php-version }}-alpine
@@ -78,7 +78,7 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-          - '8.2-rc'
+          - '8.2'
     runs-on: ubuntu-22.04
     container:
       image: php:${{ matrix.php-version }}-alpine
@@ -110,7 +110,7 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-          - '8.2-rc'
+          - '8.2'
     runs-on: ubuntu-22.04
     container:
       image: php:${{ matrix.php-version }}-alpine
@@ -142,7 +142,7 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-          - '8.2-rc'
+          - '8.2'
     runs-on: ubuntu-22.04
     container:
       image: php:${{ matrix.php-version }}-alpine
@@ -174,7 +174,7 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-          - '8.2-rc'
+          - '8.2'
     runs-on: ubuntu-22.04
     container:
       image: php:${{ matrix.php-version }}-alpine
@@ -206,7 +206,7 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-          - '8.2-rc'
+          - '8.2'
     runs-on: ubuntu-22.04
     container:
       image: php:${{ matrix.php-version }}-alpine
