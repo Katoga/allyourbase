@@ -33,8 +33,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
-          chmod a+x ${COMPOSER_LOCATION}
+          curl -LfSsO "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar"
+          curl -LfSsO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar.sha256sum"
+          sha256sum -c composer.phar.sha256sum
+          install -m 0755 composer.phar "$COMPOSER_LOCATION"
+          rm -f composer.phar*
       - name: Validate composer.json and composer.lock
         run: '"$COMPOSER_LOCATION" validate --strict'
 
@@ -57,8 +60,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
-          chmod a+x ${COMPOSER_LOCATION}
+          curl -LfSsO "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar"
+          curl -LfSsO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar.sha256sum"
+          sha256sum -c composer.phar.sha256sum
+          install -m 0755 composer.phar "$COMPOSER_LOCATION"
+          rm -f composer.phar*
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -89,8 +95,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
-          chmod a+x ${COMPOSER_LOCATION}
+          curl -LfSsO "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar"
+          curl -LfSsO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar.sha256sum"
+          sha256sum -c composer.phar.sha256sum
+          install -m 0755 composer.phar "$COMPOSER_LOCATION"
+          rm -f composer.phar*
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -121,8 +130,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
-          chmod a+x ${COMPOSER_LOCATION}
+          curl -LfSsO "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar"
+          curl -LfSsO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar.sha256sum"
+          sha256sum -c composer.phar.sha256sum
+          install -m 0755 composer.phar "$COMPOSER_LOCATION"
+          rm -f composer.phar*
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -153,8 +165,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
-          chmod a+x ${COMPOSER_LOCATION}
+          curl -LfSsO "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar"
+          curl -LfSsO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar.sha256sum"
+          sha256sum -c composer.phar.sha256sum
+          install -m 0755 composer.phar "$COMPOSER_LOCATION"
+          rm -f composer.phar*
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -185,8 +200,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
-          chmod a+x ${COMPOSER_LOCATION}
+          curl -LfSsO "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar"
+          curl -LfSsO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar.sha256sum"
+          sha256sum -c composer.phar.sha256sum
+          install -m 0755 composer.phar "$COMPOSER_LOCATION"
+          rm -f composer.phar*
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -217,8 +235,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install composer
         run: |
-          curl -LfSs "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" -o ${COMPOSER_LOCATION}
-          chmod a+x ${COMPOSER_LOCATION}
+          curl -LfSsO "https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar"
+          curl -LfSsO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar.sha256sum"
+          sha256sum -c composer.phar.sha256sum
+          install -m 0755 composer.phar "$COMPOSER_LOCATION"
+          rm -f composer.phar*
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
