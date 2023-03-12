@@ -13,11 +13,10 @@
 		"php": "~8.0"
 	},
 	"require-dev": {
-		"nette/tester": "~2.4.0",
-		"sebastian/phpcpd": "~6.0.0",
+		"nette/tester": "~2.5.0",
 		"phpmd/phpmd": "~2.13.0",
 		"squizlabs/php_codesniffer": "~3.7.0",
-		"phpstan/phpstan": "~1.9.0",
+		"phpstan/phpstan": "~1.10.0",
 		"roave/security-advisories": "dev-master"
 	},
 	"autoload": {
@@ -27,9 +26,8 @@
 	},
 	"scripts": {
 		"tester": "vendor/bin/tester -s -p php tests",
-		"phpcpd": "vendor/bin/phpcpd src tests",
 		"phpmd": "vendor/bin/phpmd src,tests text cleancode,codesize,controversial,design,naming,unusedcode",
 		"phpcs": "vendor/bin/phpcs --standard=phpcs_ruleset.xml src",
-		"phpstan": "vendor/bin/phpstan analyse --level 8 --no-progress src tests"
+		"phpstan": "vendor/bin/phpstan analyse --no-progress"
 	}
 }
