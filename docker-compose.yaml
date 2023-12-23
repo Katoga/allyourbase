@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # test
   test-8.1:
-    image: php:8.1-alpine3.17
+    image: php:8.1-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -20,7 +20,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   test-8.2:
-    image: php:8.2-alpine3.17
+    image: php:8.2-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -38,7 +38,7 @@ services:
 
   # phpmd
   phpmd-8.1:
-    image: php:8.1-alpine3.17
+    image: php:8.1-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -55,7 +55,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   phpmd-8.2:
-    image: php:8.2-alpine3.17
+    image: php:8.2-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -73,7 +73,7 @@ services:
 
   # phpcs
   phpcs-8.1:
-    image: php:8.1-alpine3.17
+    image: php:8.1-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -90,7 +90,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   phpcs-8.2:
-    image: php:8.2-alpine3.17
+    image: php:8.2-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -108,7 +108,7 @@ services:
 
   # phpstan
   phpstan-8.1:
-    image: php:8.1-alpine3.17
+    image: php:8.1-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
@@ -125,7 +125,7 @@ services:
       - ~/.composer/cache:/root/.composer/cache
 
   phpstan-8.2:
-    image: php:8.2-alpine3.17
+    image: php:8.2-alpine3.19
     working_dir: /opt/allyourbase
     command:
       - sh
