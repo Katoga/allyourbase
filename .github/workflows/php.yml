@@ -16,7 +16,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.0'
           - '8.1'
           - '8.2'
     runs-on: ubuntu-22.04
@@ -44,7 +43,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.0'
           - '8.1'
           - '8.2'
     runs-on: ubuntu-22.04
@@ -66,7 +64,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.0'
           - '8.1'
           - '8.2'
     runs-on: ubuntu-22.04
@@ -95,7 +92,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.0'
           - '8.1'
           - '8.2'
     runs-on: ubuntu-22.04
@@ -124,7 +120,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.0'
           - '8.1'
           - '8.2'
     runs-on: ubuntu-22.04
@@ -153,7 +148,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.0'
           - '8.1'
           - '8.2'
     runs-on: ubuntu-22.04
@@ -182,7 +176,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '8.0'
           - '8.1'
           - '8.2'
     runs-on: ubuntu-22.04
